@@ -1,0 +1,29 @@
+const express = require('express');
+const TelegramBot = require('node-telegram-bot-api');
+const telegramToken = '6458057970:AAG6CLZyaZCEJtxZXAyWQzgS49bn5IyPufs';
+const bot = new TelegramBot(telegramToken, { polling: true });
+
+const app = express();
+const port = 3000;
+
+app.get('/send-message', (req, res) => {
+  const message = req.query.message;
+  if (!message) {
+    return res.status(200).json({ error: 'Missing message parameter' });
+  }
+
+  const userId = 6307305119;
+
+  bot.sendMessage(userId, message)
+    .then(() => {
+      res.json({ success: true, message: 'Message sent successfully' });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(200).json({ error: 'Failed to send message' });
+    });
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on ${port}`);
+});
