@@ -13,7 +13,7 @@ app.get('/send-message', (req, res) => {
         return res.status(200).json({ error: 'Missing message parameter' });
     }
 
-    let userId = isDone ? -4006281959 : 6307305119;
+    let userId = isDone ? -4047749205 : 6307305119;
 
     bot.sendMessage(userId, message)
         .then(() => {
