@@ -7,11 +7,13 @@ const app = express();
 
 app.get('/send-message', (req, res) => {
     const message = req.query.message;
+    const isDone = req.query.isDone === 'true'; 
+
     if (!message) {
         return res.status(200).json({ error: 'Missing message parameter' });
     }
 
-    const userId = 6307305119;
+    let userId = isDone ? -4006281959 : 6307305119;
 
     bot.sendMessage(userId, message)
         .then(() => {
@@ -22,6 +24,7 @@ app.get('/send-message', (req, res) => {
             res.status(200).json({ error: 'Failed to send message' });
         });
 });
+
 
 app.listen(3001, () => {
     console.log('Server is up on 3001')
